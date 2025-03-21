@@ -29,7 +29,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-muted/50 antialiased`}
       >
-        <Providers cookie={(await headers()).get("cookie") || ""}>
+        <Providers cookie={(await headers()).get("cookie")}>
           {children}
         </Providers>
       </body>
