@@ -30,7 +30,7 @@ export default function VestingClaimHistory({ vesting, account }: Props) {
     return <div className="text-muted-foreground">Loading...</div>;
   if (claims.isError) return <div>Error: {claims.error.message}</div>;
   if (!claims.data) return null;
-  if (claims.data?.data.length === 0)
+  if (claims.data.data.length === 0)
     return (
       <div className="py-8 text-center text-muted-foreground">
         No claims have been made yet

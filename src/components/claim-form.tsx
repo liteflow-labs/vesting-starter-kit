@@ -101,7 +101,7 @@ export default function ClaimForm({
         const claims = await liteflow.vestingClaim.list(
           vesting.chainId,
           vesting.contractAddress,
-          { holder: account.address as Address }
+          { holder: account.address }
         );
 
         const foundClaim = (claims.data?.data || []).find(
@@ -118,7 +118,7 @@ export default function ClaimForm({
         queryKey: vestingPositionKey({
           chainId: vesting.chainId,
           contract: vesting.contractAddress,
-          holder: account.address as Address,
+          holder: account.address,
         }),
       });
 

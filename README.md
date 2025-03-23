@@ -1,14 +1,14 @@
-# {APP} Starter Kit
+# Vesting Starter Kit
 
 ## Purpose
 
-The {APP} Starter Kit is a boilerplate project designed to help businesses launch their own {APP_TYPE}. It includes a Next.js frontend with TypeScript, Tailwind CSS, and React Query, as well as a Liteflow SDK backend to manage quests and leaderboards.
+The Vesting Starter Kit is a boilerplate project designed to help businesses launch their own vesting contracts. It includes a Next.js frontend with TypeScript, Tailwind CSS, and React Query, as well as a Liteflow SDK backend to manage vesting contracts.
 
 ## Features
 
-- **Feature 1:** Display a list of X for users to interact with.
-- **Feature 2:** Do X
-- **Feature 3:** Do Y
+- **Feature 1:** Display a list of vesting contracts for users to interact with.
+- **Feature 2:** Claim vested tokens for users.
+- **Feature 3:** View vesting history for users.
 
 ## Setup
 
@@ -17,8 +17,8 @@ Follow these steps to set up the project:
 ### Clone the repository:
 
 ```bash
-git clone https://github.com/liteflow-labs/{REPO}.git
-cd {REPO}
+git clone https://github.com/liteflow-labs/vesting-starter-kit.git
+cd vesting-starter-kit
 ```
 
 ### Install dependencies:

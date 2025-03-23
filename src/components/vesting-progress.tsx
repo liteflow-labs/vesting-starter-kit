@@ -10,7 +10,6 @@ type Props = {
 
 export default function VestingProgress({ vesting }: Props) {
   const progress = useMemo(() => {
-    if (!vesting) return 0;
     const currentDate = new Date();
     return Math.min(
       100,

@@ -106,6 +106,7 @@ export default function VestingGraph({
         <XAxis
           dataKey="date"
           domain={["dataMin", "dataMax"]}
+          /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */
           tickFormatter={(tick) => format(new Date(tick), "MMM yyyy")}
           minTickGap={40}
           axisLine={false}
@@ -114,9 +115,11 @@ export default function VestingGraph({
           content={
             <ChartTooltipContent
               indicator="line"
-              labelFormatter={(label, [{ payload }]) =>
-                formatDate(payload.date, "dd MMM yyyy")
-              }
+              /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+              labelFormatter={(_label, [{ payload }]: any) => {
+                /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any */
+                return formatDate(payload.date, "dd MMM yyyy");
+              }}
             />
           }
         />
