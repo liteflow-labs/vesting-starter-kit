@@ -9,7 +9,7 @@
     "lint": "next lint && prettier \"**/*.{js,ts,tsx,json,md}\" --check"
   },
   "dependencies": {
-    "@liteflow/sdk": "^1.1.0",
+    "@liteflow/sdk": "^1.1.2",
     "@radix-ui/react-progress": "^1.1.2",
     "@radix-ui/react-scroll-area": "^1.2.3",
     "@radix-ui/react-separator": "^1.1.2",

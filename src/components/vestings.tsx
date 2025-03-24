@@ -1,6 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import Vesting from "@/components/vesting";
 import useVestings from "@/hooks/useVestings";
@@ -12,21 +19,45 @@ import { useMemo } from "react";
 import { invariant } from "ts-invariant";
 import { useAccount } from "wagmi";
 
-export default function Vestings() {
+type Props = {
+  chainId: number;
+  tokenAddress: `0x${string}`;
+};
+
+export default function Vestings({ chainId, tokenAddress }: Props) {
   const account = useAccount();
-  const vestings = useVestings(account.address);
+  const vestings = useVestings({
+    holder: account.address,
+    chainId,
+    tokenAddress,
+  });
   const searchParams = useSearchParams();
   const { openAccountModal } = useAccountModal();
   const vesting = useMemo(() => {
     if (!vestings.data) return null;
     const selected = vestings.data.data.find(
-      (v) => `${v.chainId}-${v.contractAddress}` === searchParams.get("vesting")
+      (v) =>
+        `${v.chainId.toString()}-${v.contractAddress}` ===
+        searchParams.get("vesting")
     );
     if (selected) return selected;
     return vestings.data.data[0];
   }, [vestings.data, searchParams]);
 
-  if (!account.isConnected) return <ConnectButton />;
+  if (!account.isConnected)
+    return (
+      <Card className="mx-auto w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>
+            Connect your wallet to view your vesting details
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ConnectButton />
+        </CardContent>
+      </Card>
+    );
   invariant(account.address, "Account address is required");
 
   return (
@@ -44,14 +75,14 @@ export default function Vestings() {
           <div className="flex justify-end gap-2">
             {vestings.data.data.map((vesting) => (
               <Button
-                key={`${vesting.chainId}-${vesting.contractAddress}`}
+                key={`${vesting.chainId.toString()}-${vesting.contractAddress}`}
                 size="sm"
                 variant="outline"
                 className="whitespace-nowrap"
                 asChild
               >
                 <Link
-                  href={`?vesting=${vesting.chainId}-${vesting.contractAddress}`}
+                  href={`?vesting=${vesting.chainId.toString()}-${vesting.contractAddress}`}
                 >
                   {vesting.name}
                 </Link>
@@ -68,7 +99,18 @@ export default function Vestings() {
       ) : vestings.error ? (
         <p className="text-destructive">Error: {vestings.error.message}</p>
       ) : !vesting ? (
-        <p className="text-muted-foreground">No vesting found</p>
+        <Card>
+          <CardHeader>
+            <CardTitle>No vesting found</CardTitle>
+            <CardDescription>No vesting found for this account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground">
+              Please ensure you are connected to the correct wallet or contact
+              the vesting administrator.
+            </p>
+          </CardContent>
+        </Card>
       ) : (
         <Vesting vesting={vesting} account={account.address} />
       )}
