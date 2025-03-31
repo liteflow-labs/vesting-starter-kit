@@ -43,7 +43,7 @@ export default function Vesting({ vesting, account }: Props) {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="h-72 pt-2">
+          <div className="pt-2">
             <VestingGraph vesting={vesting} position={position.data} />
           </div>
         </CardContent>
@@ -52,7 +52,7 @@ export default function Vesting({ vesting, account }: Props) {
 
         <CardContent className="flex-grow">
           <div className="space-y-6">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid gap-4 sm:grid-cols-3">
               <div className="space-y-1">
                 <div className="text-sm text-muted-foreground">Start Date</div>
                 <div className="flex items-center font-medium">
@@ -78,7 +78,7 @@ export default function Vesting({ vesting, account }: Props) {
 
             <VestingProgress vesting={vesting} />
 
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid gap-4 pt-2 md:grid-cols-2">
               <div className="rounded-lg border p-3">
                 <div className="text-sm text-muted-foreground">Allocation</div>
                 <div className="flex items-center gap-2 text-xl font-semibold">
@@ -155,7 +155,7 @@ export default function Vesting({ vesting, account }: Props) {
             <h3 className="text-lg font-medium">Claim History</h3>
           </CardTitle>
         </CardHeader>
-        <CardContent className="relative h-full w-full">
+        <CardContent className="relative h-full min-h-64 w-full lg:min-h-fit">
           <div className="absolute inset-0">
             <ScrollArea className="h-full w-full px-6 py-0">
               <VestingClaimHistory vesting={vesting} account={account} />

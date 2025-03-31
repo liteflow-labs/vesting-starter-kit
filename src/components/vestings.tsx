@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Vesting from "@/components/vesting";
 import useVestings from "@/hooks/useVestings";
 import { ConnectButton, useAccountModal } from "@rainbow-me/rainbowkit";
@@ -61,8 +62,8 @@ export default function Vestings({ chainId, tokenAddress }: Props) {
   invariant(account.address, "Account address is required");
 
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-4">
-      <nav className="flex justify-between gap-2 overflow-x-auto">
+    <div className="mx-auto my-6 w-full max-w-6xl space-y-4">
+      <nav className="flex justify-between gap-2 overflow-x-auto p-1">
         <Button
           variant="outline"
           size="sm"
@@ -73,21 +74,30 @@ export default function Vestings({ chainId, tokenAddress }: Props) {
         </Button>
         {vestings.data && vestings.data.pagination.totalCount > 1 && (
           <div className="flex justify-end gap-2">
-            {vestings.data.data.map((vesting) => (
-              <Button
-                key={`${vesting.chainId.toString()}-${vesting.contractAddress}`}
-                size="sm"
-                variant="outline"
-                className="whitespace-nowrap"
-                asChild
-              >
-                <Link
-                  href={`?vesting=${vesting.chainId.toString()}-${vesting.contractAddress}`}
-                >
-                  {vesting.name}
-                </Link>
-              </Button>
-            ))}
+            <Tabs
+              value={
+                vesting
+                  ? `${vesting.chainId.toString()}-${vesting.contractAddress}`
+                  : undefined
+              }
+            >
+              <TabsList className="h-auto bg-transparent p-0">
+                {vestings.data.data.map((vesting) => (
+                  <TabsTrigger
+                    value={`${vesting.chainId.toString()}-${vesting.contractAddress}`}
+                    key={`${vesting.chainId.toString()}-${vesting.contractAddress}`}
+                    asChild
+                  >
+                    <Link
+                      className="h-8"
+                      href={`?vesting=${vesting.chainId.toString()}-${vesting.contractAddress}`}
+                    >
+                      {vesting.name}
+                    </Link>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
           </div>
         )}
       </nav>
