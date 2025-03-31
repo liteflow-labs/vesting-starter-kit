@@ -9,7 +9,10 @@ export default function NumberFormatter({
 }) {
   if (children === undefined) return null;
   const formattedNumber = formatUnits(BigInt(children), decimals);
-  const [whole, fraction] = formattedNumber.split(".");
-  if (!fraction) return whole;
-  return `${whole}.${fraction.slice(0, 3)}`;
+  const formatter = Intl.NumberFormat("en-US");
+  return (
+    <span title={formattedNumber}>
+      {formatter.format(Number(formattedNumber))}
+    </span>
+  );
 }
